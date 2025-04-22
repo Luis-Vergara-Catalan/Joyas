@@ -1,0 +1,5 @@
+#No subir datos sensibles
+.env
+
+#No subir carpeta de dependencias
+/node_modules

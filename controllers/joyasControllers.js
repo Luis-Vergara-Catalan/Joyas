@@ -1,17 +1,32 @@
 import { filtroJoyas, obtenerJoyas} from "../models/joyasModels.js";
 
-//Función para ver un post
+
+//Middleware
+export const logRequest = (req, res, next) => {
+    console.log(`Método: ${req.method}, Ruta: ${req.url}`);
+    next();
+}
+
+// Funcón Hateoas
+const formatHateoas = (results)=>{
+    return{
+        results: results,
+    };
+};
+
+//Función para ver todas las hoyas
 export const getAllJoyas = async (req, res) =>{
     try {
-        const joyas = await obtenerJoyas(req.query);
-        res.status(200).json({"joyas":joyas});
+        const results = await obtenerJoyas(req.query);
+        const resultados = formatHateoas(results);
+        res.status(200).json({resultados});
     } catch (error) {
         if (error.code ==='400'){
             res.status(400).json({mensaje: "Error al obtener las joyas"});
         } else{
         res.status(400).json(error);
         }
-    }
+    };
 };
 
 export const getFilterJoyas = async (req, res) =>{
@@ -24,5 +39,5 @@ export const getFilterJoyas = async (req, res) =>{
         } else{
         res.status(400).json(error);
         }
-    }
-    }
+    };
+};

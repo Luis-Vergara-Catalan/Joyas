@@ -3,6 +3,8 @@ import pgk from "pg-format";
 
 const format = pgk;
 
+
+// limite de paginacion, orden ascendente y que parta en la segunda pagina
 export const obtenerJoyas = async ({
     limit = 3, 
     order_by = "stock_ASC",
@@ -29,12 +31,12 @@ export const obtenerJoyas = async ({
     };
 };
 
-
+//filtros de precio max y min, categoria y metal
 export const filtroJoyas = async ({
-    precio_max,
-    precio_min,
-    categoria,
-    metal,
+    precio_max = 30000,
+    precio_min = 2500,
+    categoria = aros,
+    metal = plata,
 }) => {
     try {
         const condiciones = [];
